@@ -3,7 +3,7 @@ const sse = require('koa-sse-stream')
 const searchController = require('../controllers/search-controller')
 
 const router = new Router({
-  prefix: process.env.API_PREFIX
+  prefix: '/api'
 })
 
 router.get('/search', sse(), searchController.search)
