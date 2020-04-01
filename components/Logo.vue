@@ -1,31 +1,32 @@
 <template>
-  <span class="brand-logo is-uppercase" :class="$style.logo">
-    <img :src="$icon(36)" alt="Soulsearch logo icon" class="logo-icon" :class="[$style.icon]">
-    <span class="logo-text" :class="[$style.text]">
-      <span class="has-text-primary">
-        Soul
-      </span>
-      <span class="has-text-white-ter">
-        search
-      </span>
+  <div class="brand-logo is-uppercase" :class="[$style.logo]">
+    <img :src="$icon(24)" alt="Soulsearch logo icon" class="logo-icon" :class="[$style.icon]">
+    <span class="logo-text" :class="[$style.text, 'has-text-white-ter', 'is-size-6']">
+      {{ appName }}
     </span>
-  </span>
+  </div>
 </template>
 
-<style module>
-.logo,
-.text {
-  display: flex;
-  align-items: baseline;
+<script>
+export default {
+  computed: {
+    appName () {
+      return process.env.APP_NAME
+    }
+  }
 }
+</script>
 
-.text {
-  margin-left: 0.5rem;
+<style module>
+.logo {
+  display: flex;
+  align-items: center;
   position: relative;
   top: 0.25rem;
 }
 
-.icon {
-  align-self: center;
+.text {
+  margin-left: 0.5rem;
+  font-weight: 700;
 }
 </style>

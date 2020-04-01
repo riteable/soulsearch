@@ -4,11 +4,13 @@
 @import '~buefy/src/scss/buefy';
 
 // General overrides
+
 hr {
   background-color: rgba(255, 255, 255, 0.25);
 }
 
 // Bulma/Buefy classes
+
 .icon {
   vertical-align: top;
 }
@@ -65,9 +67,6 @@ hr {
 }
 
 // Custom classes
-.overflow-hidden-x {
-  overflow-x: hidden;
-}
 
 .block-header {
   margin-bottom: 1rem;
@@ -102,6 +101,7 @@ hr {
 }
 
 // TODO: Refactor to function
+
 .has-margin-top,
 .has-margin-top-medium { margin-top: 0.5rem; }
 .has-margin-right,
