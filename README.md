@@ -1,22 +1,35 @@
 # Soulsearch
 
-> A simple web UI and API based on the Soulseek protocol.
+A simple web UI and API based on the Soulseek protocol.
 
-## Build Setup
+## Install
 
-```bash
-# install dependencies
+```
 $ npm install
-
-# serve with hot reload at localhost:3000
-$ npm run dev
-
-# build for production and launch server
-$ npm run build
-$ npm run start
-
-# generate static project
-$ npm run generate
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+## Development
+
+```
+$ npm run dev
+```
+
+## Production
+
+**Option 1** - Docker Compose
+
+```
+$ docker-compose -f docker-compose.yml -f docker-compose.prod.yml up
+```
+
+**Option 2** - Docker Swarm mode
+
+```
+$ docker-compose -f docker-compose.yml -f docker-compose.prod.yml config | docker stack deploy -c - <YOUR-STACK-NAME>
+```
+
+**Option 3** - PM2
+
+```
+$ pm2 start pm2.json
+```
