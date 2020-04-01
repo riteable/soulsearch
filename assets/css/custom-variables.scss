@@ -1,0 +1,80 @@
+@import "~bulma/sass/utilities/_all";
+
+$background: $black;
+$body-background-color: $black;
+
+$family-primary: 'Source Sans Pro', sans-serif;
+
+$primary: #e5c317;
+$primary-invert: findColorInvert($primary);
+$dark: #1d1d1d;
+$dark-invert: findColorInvert($dark);
+
+$radius-small: 1px;
+$radius: 2px;
+$radius-large: 4px;
+
+$colors: (
+  "white": ($white, $black),
+  "black": ($black, $white),
+  "light": ($light, $light-invert),
+  "dark": ($dark, $dark-invert),
+  "primary": ($primary, $primary-invert),
+  "info": ($info, $info-invert),
+  "success": ($success, $success-invert),
+  "warning": ($warning, $warning-invert),
+  "danger": ($danger, $danger-invert)
+);
+
+$text: $white-ter;
+$text-strong: $text;
+$border: $dark;
+
+$title-color: $text;
+$subtitle-color: $grey-light;
+
+$link: $primary;
+$link-invert: $primary-invert;
+$link-hover: $grey-lighter;
+$link-focus-border: $primary;
+
+$label-color: $text;
+
+$input-color: $text;
+$input-background-color: $black-bis;
+$input-border-color: $grey-dark;
+$input-hover-border-color: $grey;
+$input-focus-box-shadow-size: 0 0 0 0;
+$input-icon-color: $grey-dark;
+$input-icon-active-color: $grey-darker;
+
+$card-color: $text;
+$card-background-color: $dark;
+$card-header-color: $grey-lighter;
+$card-header-background-color: $black-bis;
+$card-header-shadow: 0 1px 0 rgba($black, 0.5);
+
+$panel-heading-color: $text;
+$panel-heading-background-color: $dark;
+$panel-block-color: $white-ter;
+$panel-heading-size: 1.25rem;
+
+$section-padding: 1.5rem 0.5rem;
+
+$box-background-color: $dark;
+
+$table-color: $text;
+$table-background-color: $black-bis;
+$table-head-background-color: $dark;
+$table-cell-border: 1px solid $dark;
+
+$footer-background-color: $dark;
+$footer-padding: 2rem 1rem;
+
+$dropdown-content-background-color: $black-bis;
+$dropdown-item-hover-background-color: $dark;
+$dropdown-item-color: $grey;
+$dropdown-item-hover-color: $white-ter;
+
+$input-disabled-border-color: $grey-dark;
+$input-disabled-background-color: $dark;

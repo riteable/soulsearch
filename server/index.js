@@ -1,14 +1,17 @@
+require('dotenv').config()
+
 const Koa = require('koa')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
+const config = require('../nuxt.config.js')
+const router = require('./routes')
+const errorHandler = require('./middleware/error-handler')
 
 const app = new Koa()
 
-// Import and Set Nuxt.js options
-const config = require('../nuxt.config.js')
 config.dev = app.env !== 'production'
 
-async function start() {
+async function start () {
   // Instantiate nuxt.js
   const nuxt = new Nuxt(config)
 
@@ -23,6 +26,10 @@ async function start() {
     const builder = new Builder(nuxt)
     await builder.build()
   }
+
+  app.use(errorHandler())
+  app.use(router.routes())
+  app.use(router.allowedMethods())
 
   app.use((ctx) => {
     ctx.status = 200

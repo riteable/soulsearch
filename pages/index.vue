@@ -1,46 +1,169 @@
 <template>
-  <section class="section">
-    <div class="columns is-mobile">
-      <card title="Free" icon="github-circle">
-        Open source on
-        <a href="https://github.com/buefy/buefy">
-          GitHub
-        </a>
-      </card>
+  <div class="section">
+    <div class="container">
+      <p v-if="counters.files" class="content has-text-centered is-uppercase is-size-7 has-text-grey-light">
+        <span>Found</span>
+        <strong class="has-text-primary">
+          {{ counters.files }}
+        </strong>
+        <span>songs in</span>
+        <strong class="has-text-primary">
+          {{ counters.folders }}
+        </strong>
+        <span>folders</span>
 
-      <card title="Responsive" icon="cellphone-link">
-        <b class="has-text-grey">
-          Every
-        </b>
-        component is responsive
-      </card>
+        <loader-icon v-if="isBusy" class="icon is-small spin has-text-grey" :class="[$style.loader]" />
+      </p>
 
-      <card title="Modern" icon="alert-decagram">
-        Built with
-        <a href="https://vuejs.org/">
-          Vue.js
-        </a>
-        and
-        <a href="http://bulma.io/">
-          Bulma
-        </a>
-      </card>
+      <results />
 
-      <card title="Lightweight" icon="arrange-bring-to-front">
-        No other internal dependency
-      </card>
+      <div v-if="isBusy && !isDone" class="content has-text-centered">
+        <p class="has-text-primary">
+          <loader-icon class="icon is-large spin has-text-primary" />
+        </p>
+
+        <p>Fetching songs. Just a moment, please.</p>
+      </div>
+
+      <div v-else-if="!isBusy && !isDone" class="content">
+        <div class="has-text-centered">
+          <music-icon class="icon is-large has-text-primary" />
+          <p>Search &amp; download some music!</p>
+        </div>
+      </div>
+
+      <div v-else-if="isDone && !results.length">
+        <div class="content has-text-centered">
+          <alert-triangle-icon class="icon is-large has-text-primary" />
+          <h2>Hmm... Couldn't find anything.</h2>
+          <p>Try some other search terms or something.</p>
+        </div>
+      </div>
+
+      <hr>
+
+      <tips />
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
-import Card from '~/components/Card'
+import qs from 'qs'
+import { mapState, mapGetters } from 'vuex'
+import { MusicIcon, AlertTriangleIcon, LoaderIcon } from 'vue-feather-icons'
+import Results from '@/components/Results'
+import Tips from '@/components/Tips'
+
+let sse = null
 
 export default {
-  name: 'HomePage',
+  name: 'Index',
 
   components: {
-    Card
+    Results,
+    Tips,
+    MusicIcon,
+    AlertTriangleIcon,
+    LoaderIcon
+  },
+
+  fetch (ctx) {
+    const query = ctx.query.q ? ctx.query.q.trim() : null
+
+    if (query) {
+      ctx.store.commit('search/setQuery', query)
+    }
+  },
+
+  computed: {
+    ...mapState({
+      status: state => state.search.state,
+      results: state => state.search.results,
+      counters: state => state.search.counters
+    }),
+    ...mapGetters('search', [
+      'isBusy',
+      'isDone'
+    ])
+  },
+
+  watch: {
+    '$route.query.q': {
+      async handler (query) {
+        this.$store.dispatch('search/resetState')
+
+        window.scrollTo(0, 0)
+
+        if (!query) {
+          return null
+        }
+
+        try {
+          await this.search(query)
+        } catch (err) {
+          this.$buefy.open({
+            message: 'Search failed.',
+            type: 'is-danger'
+          })
+        }
+      }
+    }
+  },
+
+  mounted () {
+    this.search(this.$route.query.q)
+  },
+
+  beforeDestroy () {
+    if (sse) {
+      sse.close()
+    }
+  },
+
+  methods: {
+    async search (query) {
+      if (!query) {
+        return null
+      }
+
+      this.$store.commit('search/isBusy')
+
+      try {
+        sse = await this.$sse('/api/search?' + qs.stringify({ query }), { format: 'json' })
+      } catch (err) {
+        this.$store.commit('search/isDone')
+
+        return this.$buefy.toast.open('Failed to connect to events server.')
+      }
+
+      sse.onError(this.onEventError)
+      sse.subscribe('folder', this.onFolder)
+      sse.subscribe('done', this.onDone)
+    },
+    onEventError (err) {
+      this.$buefy.toast.open(err.message)
+    },
+    onFolder (data) {
+      this.$store.commit('search/patchCounters', {
+        folders: this.counters.folders + 1,
+        files: this.counters.files + data.files.length
+      })
+      this.$store.commit('search/pushResult', data)
+    },
+    onDone (data) {
+      this.$store.commit('search/patchCounters', data)
+      this.$store.commit('search/isDone')
+
+      sse.unsubscribe('folder')
+      sse.unsubscribe('done')
+    }
   }
 }
 </script>
+
+<style module>
+.loader {
+  position: absolute;
+  margin-left: 0.25rem;
+}
+</style>

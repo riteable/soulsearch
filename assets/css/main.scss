@@ -1,0 +1,144 @@
+@import 'custom-variables.scss';
+
+@import '~bulma';
+@import '~buefy/src/scss/buefy';
+
+// General overrides
+hr {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+// Bulma/Buefy classes
+.icon {
+  vertical-align: top;
+}
+
+.button {
+  border-radius: $radius;
+}
+
+.panel:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.tag:not(body) {
+  background-color: $grey-dark;
+}
+
+.tag:not(body).is-delete:hover,
+.tag:not(body).is-delete:focus {
+  background-color: $grey;
+}
+
+.card-header .icon {
+  margin-right: 0.25rem;
+}
+
+.card-content {
+  padding: 1rem;
+}
+
+.message-body {
+  padding: 0.5em 0.5em 0.5em 0.75em;
+}
+
+.select {
+  select {
+    option {
+      color: $text;
+    }
+    optgroup {
+      color: $grey-light;
+    }
+  }
+  &.is-empty select {
+    color: rgba($grey-light, 0.7);
+  }
+}
+
+.message.is-info {
+  background-color: #144265;
+}
+
+.message.is-info .message-body {
+  color: #95d2ff;
+}
+
+// Custom classes
+.overflow-hidden-x {
+  overflow-x: hidden;
+}
+
+.block-header {
+  margin-bottom: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 1.25rem;
+  color: $primary;
+}
+
+.block-header-title {
+  font-weight: 700;
+}
+
+.block-header-subtitle {
+  font-size: 0.75em;
+  text-transform: none;
+  color: $grey-light;
+}
+
+.truncate {
+  width: 95%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.spin {
+  animation-name: spin;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+// TODO: Refactor to function
+.has-margin-top,
+.has-margin-top-medium { margin-top: 0.5rem; }
+.has-margin-right,
+.has-margin-right-medium { margin-right: 0.5rem; }
+.has-margin-bottom,
+.has-margin-bottom-medium { margin-bottom: 0.5rem; }
+.has-margin-left,
+.has-margin-bottom-medium { margin-left: 0.5rem; }
+
+.has-margin-top-large { margin-top: 1rem; }
+.has-margin-right-large { margin-right: 1rem; }
+.has-margin-bottom-large { margin-bottom: 1rem; }
+.has-margin-bottom-large { margin-left: 1rem; }
+
+.has-margin-top-small { margin-top: 0.25rem; }
+.has-margin-right-small { margin-right: 0.25rem; }
+.has-margin-bottom-small { margin-bottom: 0.25rem; }
+.has-margin-bottom-small { margin-left: 0.25rem; }
+
+.nav-main .columns.is-gapless .column {
+  padding: 0 0.5rem !important;
+}
+
+.nav-main .logo-text {
+  display: none;
+  @include tablet {
+    display: flex;
+  }
+}
+
+// Animations
+
+@keyframes spin {
+  from {
+    transform:rotate(0deg);
+  }
+  to {
+    transform:rotate(360deg);
+  }
+}
