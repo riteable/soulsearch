@@ -68,7 +68,9 @@ export default {
   },
 
   asyncData (ctx) {
-    const data = {}
+    const data = {
+      title: null
+    }
     const query = ctx.route.query.q
 
     if (query && query.trim().length) {
@@ -99,8 +101,11 @@ export default {
         window.scrollTo(0, 0)
 
         if (!query) {
+          this.title = null
           return null
         }
+
+        this.title = query
 
         try {
           await this.search(query)

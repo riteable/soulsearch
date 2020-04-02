@@ -70,7 +70,6 @@ export const getters = {
 export const actions = {
   resetState (ctx) {
     ctx.commit('resetStatus')
-    ctx.commit('resetQuery')
     ctx.commit('resetResults')
     ctx.commit('resetCounters')
   }
