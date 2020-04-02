@@ -20,10 +20,10 @@ services:
     image: jwilder/nginx-proxy:alpine
     ports:
       - target: 80
-        published: 80
+        published: "${PROXY_HTTP_PORT}"
         mode: host
       - target: 443
-        published: 443
+        published: "${PROXY_HTTPS_PORT}"
         mode: host
     labels:
       - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
@@ -34,11 +34,3 @@ services:
       - ./proxy/html:/usr/share/nginx/html
       - ./proxy/htpasswd:/etc/nginx/htpasswd
       - /var/run/docker.sock:/tmp/docker.sock:ro
-
-  ssl:
-    image: jrcs/letsencrypt-nginx-proxy-companion
-    volumes:
-      - ./proxy/certs:/etc/nginx/certs:ro
-      - ./proxy/vhost.d:/etc/nginx/vhost.d:ro
-      - ./proxy/html:/usr/share/nginx/html
-      - /var/run/docker.sock:/var/run/docker.sock:ro
