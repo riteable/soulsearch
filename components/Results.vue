@@ -145,7 +145,7 @@ export default {
       const cached = this.cache[file]
 
       if (track.status && track.status === 'loading') {
-        return this.$toast.open({
+        return this.$buefy.toast.open({
           message: 'Still busy downloading.',
           type: 'is-warning'
         })
@@ -170,7 +170,7 @@ export default {
         })
       } catch (err) {
         this.$store.commit('search/patchFile', [folderIndex, trackIndex, { status: 'error' }])
-        return this.$toast.open({
+        return this.$buefy.toast.open({
           message: 'Failed to download file.',
           type: 'is-danger'
         })

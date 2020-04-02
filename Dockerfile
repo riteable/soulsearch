@@ -19,4 +19,4 @@ COPY --chown=node . .
 
 RUN npm run build
 
-CMD ["node", "./node_modules/.bin/nuxt", "start"]
+CMD ["node", "server/index.js"]

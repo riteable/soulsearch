@@ -3,12 +3,9 @@
 .babelrc
 .editorconfig
 .env.example
-.eslintrc.js
 .gitignore
 node_modules
 Dockerfile
 docker-compose*.yml
-stylelint.config.js
-jest.config.js
 *.md
 sw.*
