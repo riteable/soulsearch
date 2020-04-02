@@ -76,3 +76,40 @@ $ pm2 start pm2.config.js --env production
 ```
 
 Also, for this option you need to configure your own proxy (e.g. Nginx) to forward the requests to your app.
+
+## Optional config
+
+Below are some optional steps to go through to setup your app.
+
+### Redirect www to non-www
+
+If you want your `www` subdomain to redirect to your domain, you can add the following config to `proxy/conf.d/your-proxy.conf`:
+
+```
+# Redirect unencrypted www traffic to non-www SSL domain
+server {
+  listen 80;
+  server_name www.yourdomain.com;
+  return 301 https://yourdomain.com$request_uri;
+}
+
+# Redirect encrypted www traffic to non-www SSL domain
+server {
+  listen 443 ssl;
+  server_name www.yourdomain.com;
+  ssl_certificate /etc/nginx/certs/yourdomain.com.crt;
+  ssl_certificate_key /etc/nginx/certs/yourdomain.com.key;
+  ssl_dhparam /etc/nginx/certs/yourdomain.com.dhparam.pem;
+  return 301 https://yourdomain.com$request_uri;
+}
+```
+
+If you do this, make sure your `VIRTUAL_HOST` doesn't contain your `www.yourdomain.com` host. But make sure `LETSENCRYPT_HOST` *does* include the subdomain host.
+
+### Protect access with basic auth
+
+You can restrict access to your app with basic authentication. Use [htpasswd](https://httpd.apache.org/docs/2.4/programs/htpasswd.html) to generate username and password credentials:
+
+```
+$ htpasswd -Bc proxy/htpasswd/yourdomain.com <YOUR-USERNAME>
+```
