@@ -5,6 +5,6 @@ services:
     image: jrcs/letsencrypt-nginx-proxy-companion
     volumes:
       - ./proxy/certs:/etc/nginx/certs
-      - ./proxy/vhost.d:/etc/nginx/vhost.d:ro
+      - ./proxy/vhost.d:/etc/nginx/vhost.d
       - ./proxy/html:/usr/share/nginx/html
       - /var/run/docker.sock:/var/run/docker.sock:ro
