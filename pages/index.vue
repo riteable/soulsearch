@@ -67,12 +67,16 @@ export default {
     LoaderIcon
   },
 
-  fetch (ctx) {
-    const query = ctx.query.q ? ctx.query.q.trim() : null
+  asyncData (ctx) {
+    const data = {}
+    const query = ctx.route.query.q
 
-    if (query) {
+    if (query && query.trim().length) {
+      data.title = query.trim()
       ctx.store.commit('search/setQuery', query)
     }
+
+    return data
   },
 
   computed: {
@@ -157,6 +161,16 @@ export default {
       sse.unsubscribe('folder')
       sse.unsubscribe('done')
     }
+  },
+
+  head () {
+    const head = {}
+
+    if (this.title) {
+      head.title = this.title
+    }
+
+    return head
   }
 }
 </script>

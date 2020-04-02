@@ -1,8 +1,8 @@
 <template>
-  <form action="/" class="form" :class="[$style.form]">
+  <form :class="['form', $style.form]" @submit.prevent="updateParam">
     <b-field>
       <div class="control is-expanded">
-        <b-input v-model="query" name="q" placeholder="Search music..." />
+        <b-input v-model="query" :name="param" placeholder="Search music..." />
       </div>
       <div v-if="query" class="control">
         <button type="button" class="button is-primary" @click.prevent="clear">
@@ -21,6 +21,13 @@ export default {
     XIcon
   },
 
+  props: {
+    param: {
+      type: String,
+      default: 'q'
+    }
+  },
+
   computed: {
     query: {
       get () { return this.$store.state.search.query },
@@ -28,19 +35,17 @@ export default {
     }
   },
 
-  watch: {
-    '$route.query.q' (query) {
-      this.query = query
-    }
-  },
-
-  created () {
-    this.query = this.$route.query.q
-  },
-
   methods: {
+    updateParam () {
+      this.$router.replace({
+        query: {
+          ...this.$route.query,
+          q: this.query
+        }
+      })
+    },
     clear () {
-      this.query = null
+      this.$store.commit('search/resetQuery')
     }
   }
 }
