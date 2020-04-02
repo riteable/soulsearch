@@ -3,6 +3,8 @@ version: '3.7'
 services:
   ssl:
     image: jrcs/letsencrypt-nginx-proxy-companion
+    depends_on:
+      - proxy
     volumes:
       - ./proxy/certs:/etc/nginx/certs
       - ./proxy/vhost.d:/etc/nginx/vhost.d

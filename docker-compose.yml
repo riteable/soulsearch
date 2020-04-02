@@ -13,6 +13,8 @@ services:
       HOST: '0.0.0.0'
       NUXT_HOST: '0.0.0.0'
       BASE_URL: 'http://localhost:3000'
+    depends_on:
+      - proxy
     healthcheck:
       test: 'curl -f http://localhost:3000 || exit 1'
 
