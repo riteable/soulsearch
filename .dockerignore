@@ -5,6 +5,7 @@
 .env.example
 .gitignore
 node_modules
+proxy/*
 Dockerfile
 docker-compose*.yml
 *.md
