@@ -28,7 +28,7 @@ services:
     labels:
       - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
     volumes:
-      - ./proxy/certs:/etc/nginx/certs:ro
+      - ./proxy/certs:/etc/nginx/certs
       - ./proxy/conf.d:/etc/nginx/conf.d
       - ./proxy/vhost.d:/etc/nginx/vhost.d:ro
       - ./proxy/html:/usr/share/nginx/html
