@@ -79,6 +79,20 @@ module.exports = {
    */
   axios: {},
   /*
+   ** PWA module configuration
+   ** See https://pwa.nuxtjs.org
+   */
+  pwa: {
+    manifest: {
+      name: process.env.APP_NAME,
+      lang: 'en',
+      short_name: process.env.APP_NAME,
+      theme_color: '#1d1d1d',
+      background_color: '#0a0a0a',
+      description: process.env.npm_package_description
+    }
+  },
+  /*
    ** Manifest icon sizes
    ** See https://pwa.nuxtjs.org/modules/icon.html
    */
