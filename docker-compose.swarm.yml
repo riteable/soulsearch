@@ -3,7 +3,7 @@ version: '3.7'
 services:
   app:
     deploy:
-      replicas: 2
+      mode: global
 
   proxy:
     deploy:
