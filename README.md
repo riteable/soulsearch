@@ -2,9 +2,9 @@
 
 A simple web UI and API based on the Soulseek protocol.
 
-## Demo
+## ~~Demo~~
 
-Go [here](https://newalbum.club/) to check it out.
+~~Go here to check it out.~~
 
 ## Development
 
