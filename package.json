@@ -33,7 +33,7 @@
     "mime": "^2.4.4",
     "nanoid": "^3.0.2",
     "normalize-path": "^3.0.0",
-    "nuxt": "^2.0.0",
+    "nuxt": "^2.16.3",
     "nuxt-buefy": "^0.3.2",
     "qs": "^6.9.3",
     "slsk-client": "^1.1.0",
