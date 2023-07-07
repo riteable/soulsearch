@@ -57,7 +57,7 @@
     "node-sass": "^4.13.1",
     "nodemon": "^1.18.9",
     "sass-loader": "^8.0.2",
-    "stylelint": "^10.1.0",
+    "stylelint": "^15.10.1",
     "vue-jest": "^4.0.0-0"
   }
 }
